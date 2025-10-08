@@ -251,7 +251,7 @@ Social: ${result.social > 0 ? '+' : ''}${result.social.toFixed(1)} (${socialLabe
 Personalidades deste quadrante:
 ${personalities.join(', ')}
 
-Faça você também: Link em breve`;
+Faça você também: https://bussola-politica.vercel.app/`;
   };
 
   const handleShare = async (): Promise<void> => {
