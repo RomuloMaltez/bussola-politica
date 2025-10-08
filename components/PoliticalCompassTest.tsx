@@ -1,11 +1,37 @@
-
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { BarChart3, User, ChevronRight, Download, Info, HelpCircle } from 'lucide-react';
+import { BarChart3, User, ChevronRight, HelpCircle } from 'lucide-react';
+
+// Interfaces TypeScript
+interface Proposition {
+  id: number;
+  text: string;
+  cluster: string;
+  axis: string;
+  direction: number;
+  explanation: string;
+}
+
+interface Leader {
+  name: string;
+  x: number;
+  y: number;
+  quadrant: string;
+  desc: string;
+}
+
+interface Result {
+  economic: number;
+  social: number;
+}
+
+interface Answers {
+  [key: number]: number;
+}
 
 // Proposições e Matriz de Mapeamento baseadas na Seção II e Tabela 2 do documento de pesquisa
-const propositions = [
+const propositions: Proposition[] = [
   // Cluster 1: Economia, Trabalho e Estado
   { id: 1, text: 'O governo deveria implementar uma renda básica universal, financiada por impostos sobre grandes fortunas e heranças.', cluster: 'Economia, Trabalho e Estado', axis: 'Econômico', direction: -1, explanation: 'É o pagamento regular de uma quantia fixa em dinheiro a todos os cidadãos, sem contrapartidas ou condicionalidades.' },
   { id: 2, text: 'Empresas estatais em setores estratégicos, como energia e recursos naturais, nunca deveriam ser privatizadas.', cluster: 'Economia, Trabalho e Estado', axis: 'Econômico', direction: -1, explanation: 'São empresas controladas pelo governo. Privatização é a transferência desse controle para o setor privado.' },
@@ -83,11 +109,11 @@ const propositions = [
 ];
 
 // Mapeamento dos clusters únicos para a navegação do teste
-const clusters = [...new Set(propositions.map(p => p.cluster))];
+const clusters: string[] = [...new Set(propositions.map(p => p.cluster))];
 
 // Função para obter as top 3 personalidades de cada quadrante
-const getTopPersonalities = (quadrant) => {
-  const personalities = {
+const getTopPersonalities = (quadrant: string): string[] => {
+  const personalities: Record<string, string[]> = {
     'Libertário de Direita': ['Milton Friedman', 'Friedrich Hayek', 'Javier Milei'],
     'Autoritário de Direita': ['Margaret Thatcher', 'Ronald Reagan', 'Jair Bolsonaro'],
     'Libertário de Esquerda': ['Bernie Sanders', 'Nelson Mandela', 'Mahatma Gandhi'],
@@ -98,8 +124,8 @@ const getTopPersonalities = (quadrant) => {
 };
 
 // Função para obter as cores de cada quadrante
-const getQuadrantColors = (quadrant) => {
-  const colors = {
+const getQuadrantColors = (quadrant: string) => {
+  const colors: Record<string, { bg: string; border: string; text: string }> = {
     'Libertário de Direita': {
       bg: 'bg-blue-100',
       border: 'border-blue-500',
@@ -130,7 +156,7 @@ const getQuadrantColors = (quadrant) => {
 };
 
 // Líderes e coordenadas baseados em análises acadêmicas e de políticas públicas.
-const leaders = [
+const leaders: Leader[] = [
   // Quadrante Libertário de Direita
   { name: 'Renato Amoedo (3oitão)', x: 10.0, y: -10.0, quadrant: 'Libertário de Direita', desc: 'Anarcocapitalista radical que defende a completa abolição do Estado, com todos os serviços, incluindo lei e segurança, providos pelo livre mercado.' },
   { name: 'Ayn Rand', x: 9.8, y: -9.5, quadrant: 'Libertário de Direita', desc: 'Filosofia do Objetivismo, defendendo o egoísmo racional, o individualismo e o capitalismo laissez-faire radical.' },
@@ -181,19 +207,19 @@ const leaders = [
   { name: 'Masoud Pezeshkian', x: -4.0, y: 8.0, quadrant: 'Autoritário de Esquerda', desc: 'Reformista no Irã, apoia diplomacia, mas opera dentro de um sistema teocrático e autoritário com forte controle estatal.' },
 ];
 
-const PoliticalCompassTest = () => {
-  const [step, setStep] = useState('intro');
-  const [userName, setUserName] = useState('');
-  const [currentClusterIndex, setCurrentClusterIndex] = useState(0);
-  const [answers, setAnswers] = useState({});
-  const [result, setResult] = useState(null);
-  const [hoveredLeader, setHoveredLeader] = useState(null);
-  const [showAppendix, setShowAppendix] = useState(false);
-  const [visibleTooltipId, setVisibleTooltipId] = useState(null);
-  const [shareMessage, setShareMessage] = useState('');
-  const topRef = useRef(null);
+const PoliticalCompassTest: React.FC = () => {
+  const [step, setStep] = useState<string>('intro');
+  const [userName, setUserName] = useState<string>('');
+  const [currentClusterIndex, setCurrentClusterIndex] = useState<number>(0);
+  const [answers, setAnswers] = useState<Answers>({});
+  const [result, setResult] = useState<Result | null>(null);
+  const [hoveredLeader, setHoveredLeader] = useState<Leader | null>(null);
+  const [showAppendix, setShowAppendix] = useState<boolean>(false);
+  const [visibleTooltipId, setVisibleTooltipId] = useState<number | null>(null);
+  const [shareMessage, setShareMessage] = useState<string>('');
+  const topRef = useRef<HTMLDivElement>(null);
 
-  const getPointColor = (quadrant) => {
+  const getPointColor = (quadrant: string): string => {
     switch(quadrant) {
       case 'Libertário de Direita': return '#3b82f6';
       case 'Autoritário de Direita': return '#dc2626';
@@ -210,7 +236,7 @@ const PoliticalCompassTest = () => {
     }
   }, [currentClusterIndex, step]);
 
-  const generateShareText = (result, userName, quadrant) => {
+  const generateShareText = (result: Result, userName: string, quadrant: string): string => {
     const personalities = getTopPersonalities(quadrant);
     const namePrefix = userName ? `${userName}: ` : '';
     const economicLabel = result.economic > 0 ? 'Pró-Livre Mercado/Desregulado' : 'Pró-Regulação/Distribuição';
@@ -228,7 +254,9 @@ ${personalities.join(', ')}
 Faça você também: Link em breve`;
   };
 
-  const handleShare = async () => {
+  const handleShare = async (): Promise<void> => {
+    if (!result) return;
+    
     const quadrant = getQuadrantLabel(result.economic, result.social);
     const text = generateShareText(result, userName, quadrant);
     
@@ -240,11 +268,11 @@ Faça você também: Link em breve`;
         await navigator.clipboard.writeText(text);
         setShareMessage('Resultado copiado para a área de transferência!');
       }
-    } catch (err) {
+    } catch {
       try {
         await navigator.clipboard.writeText(text);
         setShareMessage('Resultado copiado para a área de transferência!');
-      } catch (clipboardErr) {
+      } catch {
         setShareMessage('Não foi possível compartilhar. Tente novamente.');
       }
     }
@@ -252,11 +280,11 @@ Faça você também: Link em breve`;
     setTimeout(() => setShareMessage(''), 3000);
   };
 
-  const handleAnswer = (questionId, value) => {
+  const handleAnswer = (questionId: number, value: number): void => {
     setAnswers({ ...answers, [questionId]: value });
   };
 
-  const calculateResult = () => {
+  const calculateResult = (): void => {
     let economicScoreSum = 0;
     let socialScoreSum = 0;
     let economicCount = 0;
@@ -286,7 +314,7 @@ Faça você também: Link em breve`;
     setStep('result');
   };
   
-  const nextCluster = () => {
+  const nextCluster = (): void => {
     if (currentClusterIndex < clusters.length - 1) {
       setCurrentClusterIndex(currentClusterIndex + 1);
     } else {
@@ -294,13 +322,13 @@ Faça você também: Link em breve`;
     }
   };
 
-  const allQuestionsInClusterAnswered = () => {
+  const allQuestionsInClusterAnswered = (): boolean => {
     const currentClusterName = clusters[currentClusterIndex];
     const clusterQuestions = propositions.filter(p => p.cluster === currentClusterName);
     return clusterQuestions.every(q => answers[q.id] !== undefined);
   };
 
-  const getQuadrantLabel = (x, y) => {
+  const getQuadrantLabel = (x: number, y: number): string => {
     if (x > 0 && y > 0) return 'Autoritário de Direita';
     if (x < 0 && y > 0) return 'Autoritário de Esquerda';
     if (x < 0 && y < 0) return 'Libertário de Esquerda';
