@@ -488,7 +488,7 @@ Faça você também: https://bussola-politica.vercel.app/`;
             <h2 className="text-xl font-semibold text-indigo-900 mb-3">Como funciona:</h2>
             <ul className="space-y-2 text-gray-700">
               <li className="flex items-start"><span className="text-indigo-600 mr-2">•</span><span>Responda as proposições sobre temas atuais, leva somente 10min.</span></li>
-              <li className="flex items-start"><span className="text-indigo-600 mr-2">•</span><span>A metodologia é 100% transparente, baseada em uma <a href="https://docs.google.com/document/d/1LYHuFfzksuT1hx06NU2nQb20jeBUkwgrxSwXOhC4dNc/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-indigo-700 underline hover:text-indigo-900">metodologia detalhada</a>.</span></li>
+              <li className="flex items-start"><span className="text-indigo-600 mr-2">•</span><span>A metodologia é 100% transparente, baseada em uma <a href="https://docs.google.com/document/d/1I6quqTHf0C8DfEENWrkn7hYF6v46dZi7PjHjNPP_OhA/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-indigo-700 underline hover:text-indigo-900">metodologia detalhada</a>.</span></li>
               <li className="flex items-start"><span className="text-indigo-600 mr-2">•</span><span>Se fechar a aba do navegador, tudo é perdido; não gravamos dados.</span></li>
               <li className="flex items-start"><span className="text-indigo-600 mr-2">•</span><span>Veja sua posição comparada a líderes mundiais e históricos.</span></li>
             </ul>
