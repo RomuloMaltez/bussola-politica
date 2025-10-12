@@ -499,7 +499,7 @@ Faça você também: https://bussola-politica.vercel.app/`;
               <div>
                 <h3 className="text-lg font-semibold text-amber-900 mb-2">Aviso Importante</h3>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  Este teste tem caráter <strong>exclusivamente lúdico e educacional</strong>. Não possui viés político, validação científica, nem representa a opinião do desenvolvedor. O posicionamento das personalidades e o algoritmo foram elaborados com auxílio de IA para fins ilustrativos.
+                  Este teste tem caráter <strong>exclusivamente lúdico e recreativo</strong>. Não possui viés político, validação científica, nem representa a opinião do desenvolvedor. O posicionamento das personalidades e o algoritmo foram elaborados por Inteligências Artificiais, com dados da internet.
                 </p>
               </div>
             </div>
@@ -933,7 +933,7 @@ Faça você também: https://bussola-politica.vercel.app/`;
             
             <div className="mt-6 pt-6 border-t border-gray-200">
               <p className="text-xs text-gray-500 text-center leading-relaxed">
-                <strong>Disclaimer:</strong> Este teste tem caráter exclusivamente lúdico e educacional. Não possui viés político, validação científica, nem representa a opinião do desenvolvedor. O posicionamento das personalidades e o algoritmo foram elaborados com auxílio de IA para fins ilustrativos. <strong>Contato:</strong> <a href="mailto:app.bussola.politica@gmail.com" className="text-indigo-600 hover:text-indigo-800 underline">app.bussola.politica@gmail.com</a>
+                <strong>Disclaimer:</strong> Este teste tem caráter exclusivamente lúdico e recreativo. Não possui viés político, validação científica, nem representa a opinião do desenvolvedor. O posicionamento das personalidades e o algoritmo foram elaborados por Inteligências Artificiais, com dados da internet. <strong>Contato:</strong> <a href="mailto:app.bussola.politica@gmail.com" className="text-indigo-600 hover:text-indigo-800 underline">app.bussola.politica@gmail.com</a>
               </p>
             </div>
           </div>
