@@ -185,7 +185,7 @@ const leaders: Leader[] = [
 // Função ATUALIZADA para obter personalidades por proximidade
 const getTopPersonalities = (quadrant: string, userX: number, userY: number): string[] => {
   const curatedLists: Record<string, string[]> = {
-    'Libertário de Direita': ['Milton Friedman', 'Friedrich Hayek', 'Emmanuel Macron'],
+    'Libertário de Direita': ['Milton Friedman', 'Friedrich Hayek', 'Javier Milei'],
     'Autoritário de Direita': ['Margaret Thatcher', 'Donald Trump', 'Jair Bolsonaro'],
     'Libertário de Esquerda': ['Bernie Sanders', 'Nelson Mandela', 'Barack Obama'],
     'Autoritário de Esquerda': ['Joseph Stalin', 'Xi Jinping', 'Fidel Castro'],
